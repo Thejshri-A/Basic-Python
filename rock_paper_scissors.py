@@ -3,23 +3,20 @@ import random
 from enum import Enum
 
 
-class RPS(Enum):
-    ROCK = 1
-    PAPER = 2
-    SCISSORS = 3
+def rock_paper_scissors():
+    class RPS(Enum):
+        ROCK = 1
+        PAPER = 2
+        SCISSORS = 3
 
-
-print("Alright! Let's Play Rock Paper Scissors \n")
-
-playAgain = True
-
-while playAgain:
+    print("Alright! Let's Play Rock Paper Scissors \n")
 
     playerChoice = int(input(
         "Enter...\n 1 for Rock \n 2 for Paper or \n 3 for Scissor \n\n"))
 
-    if playerChoice < 1 or playerChoice > 3:
-        sys.exit("You must enter either 1, 2 or 3 only")
+    if playerChoice not in [1, 2, 3]:
+        print("You must enter either 1, 2 or 3 only")
+        return rock_paper_scissors()
 
     computerChoice = int(random.choice("123"))
 
@@ -39,12 +36,21 @@ while playAgain:
     else:
         print("💻🖥⌨🖱 Computer Wins!")
 
-    playAgain = input("\n Play Again ? \n Y for yes or \n Q for quit \n\n")
+    print("\n Play Again ?")
+
+    while True:
+        playAgain = input(" \n Y for yes or \n Q for quit \n\n")
+        if playAgain.lower() not in ["y", "q"]:
+            continue
+        else:
+            break
 
     if playAgain.lower() == "y":
-        continue
+        return rock_paper_scissors()
     else:
         print("Thank you for Playing ! ")
-        break
+        sys.exit("Bye😜")
 
- # View->Appearance->Panel Position->Right
+
+# View->Appearance->Panel Position->Right
+rock_paper_scissors()
