@@ -2,6 +2,8 @@ import sys
 import random
 from enum import Enum
 
+game_count = 0
+
 
 def rock_paper_scissors():
     class RPS(Enum):
@@ -25,16 +27,25 @@ def rock_paper_scissors():
     print("Computer chose " + str(RPS(computerChoice)).replace("RPS.", "") + ".")
     print("")
 
-    if (playerChoice == 1 and computerChoice == 3):
-        print("🥳🎉🎊🎖 You Win!")
-    elif playerChoice == 2 and computerChoice == 1:
-        print("🥳🎉🎊🎖 You Win!")
-    elif playerChoice == 3 and computerChoice == 2:
-        print("🥳🎉🎊🎖 You Win!")
-    elif playerChoice == computerChoice:
-        print("😁😉😜😎It's a tie")
-    else:
-        print("💻🖥⌨🖱 Computer Wins!")
+    def decide_winner(playerChoice, computerChoice):
+        if (playerChoice == 1 and computerChoice == 3):
+            return "🥳🎉🎊🎖 You Win!"
+        elif playerChoice == 2 and computerChoice == 1:
+            return "🥳🎉🎊🎖 You Win!"
+        elif playerChoice == 3 and computerChoice == 2:
+            return "🥳🎉🎊🎖 You Win!"
+        elif playerChoice == computerChoice:
+            return "😁😉😜😎It's a tie"
+        else:
+            return "💻🖥⌨🖱 Computer Wins!"
+
+    game_result = decide_winner(playerChoice, computerChoice)
+
+    print(game_result)
+
+    global game_count
+    game_count += 1
+    print("Game Count : ", game_count)
 
     print("\n Play Again ?")
 
