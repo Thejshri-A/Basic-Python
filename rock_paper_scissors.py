@@ -3,7 +3,7 @@ import random
 from enum import Enum
 
 
-def rps():
+def rps(name='PlayerOne'):
     game_count = 0
     player_wins = 0
     computer_wins = 0
@@ -12,6 +12,7 @@ def rps():
 
         nonlocal player_wins
         nonlocal computer_wins
+        nonlocal name
 
         class RPS(Enum):
             ROCK = 1
@@ -21,16 +22,16 @@ def rps():
         print("Alright! Let's Play Rock Paper Scissors \n")
 
         playerChoice = int(input(
-            "Enter...\n 1 for Rock \n 2 for Paper or \n 3 for Scissor \n\n"))
+            f"Hello {name}! Enter...\n 1 for Rock \n 2 for Paper or \n 3 for Scissor \n\n"))
 
         if playerChoice not in [1, 2, 3]:
-            print("You must enter either 1, 2 or 3 only")
+            print(f"{name} You must enter either 1, 2 or 3 only")
             return rock_paper_scissors()
 
         computerChoice = int(random.choice("123"))
 
         print("")
-        print(f"You chose {str(RPS(playerChoice)).replace('RPS.', '')}.")
+        print(f"{name} You chose {str(RPS(playerChoice)).replace('RPS.', '')}.")
         print(
             f"Computer chose {str(RPS(computerChoice)).replace('RPS.', '') }.")
         print("")
@@ -41,13 +42,13 @@ def rps():
 
             if (playerChoice == 1 and computerChoice == 3):
                 player_wins += 1
-                return "🥳🎉🎊🎖 You Win!"
+                return f"{name} 🥳🎉🎊🎖 You Win!"
             elif playerChoice == 2 and computerChoice == 1:
                 player_wins += 1
-                return "🥳🎉🎊🎖 You Win!"
+                return f"{name} 🥳🎉🎊🎖 You Win!"
             elif playerChoice == 3 and computerChoice == 2:
                 player_wins += 1
-                return "🥳🎉🎊🎖 You Win!"
+                return f"{name} 🥳🎉🎊🎖 You Win!"
             elif playerChoice == computerChoice:
                 return "😁😉😜😎It's a tie"
             else:
@@ -61,10 +62,10 @@ def rps():
         nonlocal game_count
         game_count += 1
         print(f"Game Count :  {game_count}.")
-        print(f"\n Player Wins : {player_wins}.")
+        print(f"\n {name}'s Wins : {player_wins}.")
         print(f"\n Computer Wins : {computer_wins}.")
 
-        print("\n Play Again ?")
+        print(f"\n{name}, Play Again ?")
 
         while True:
             playAgain = input(" \n Y for yes or \n Q for quit \n\n")
@@ -76,13 +77,23 @@ def rps():
         if playAgain.lower() == "y":
             return rock_paper_scissors()
         else:
-            print("Thank you for Playing ! ")
-            sys.exit("Bye😜")
+            print(f"Thank you {name}, for Playing ! ")
+            sys.exit(f"Bye😜 {name}")
     return rock_paper_scissors
 
 
 # View->Appearance->Panel Position->Right
-play_rock_paper_scissors = rps()
 
-if __name__ == "__main":
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Provides a personalized gaming experience!")
+
+    parser.add_argument(
+        "-n", "--name", metavar="name", required=True, help="The name of the player."
+    )
+    args = parser.parse_args()
+    play_rock_paper_scissors = rps(args.name)
     play_rock_paper_scissors()
