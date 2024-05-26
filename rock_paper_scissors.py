@@ -82,5 +82,7 @@ def rps():
 
 
 # View->Appearance->Panel Position->Right
-play = rps()
-play()
+play_rock_paper_scissors = rps()
+
+if __name__ == "__main":
+    play_rock_paper_scissors()
